@@ -55,7 +55,7 @@ QUIZ RULES (ONLY if Include quiz is true):
 - One correct answer only
 - Correct answer must be one of the options
 - Return correctAnswer as the option string (not index)
-
+- If include quiz is false, DO NOT include the "quiz" field at all
 Respond ONLY with valid JSON.
 No markdown.
 No explanation.
@@ -71,11 +71,11 @@ No extra text.
       "content": ""
     }
   ],
-  {
+ "quiz": [{
       "question": "",
       "options": ["", "", "", ""],
       "correctAnswer": ""
-    }
+  }]
 }
 `;
 

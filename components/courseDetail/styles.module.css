@@ -1,9 +1,12 @@
 .startQuiz {
-  background: linear-gradient(
+  /* background: linear-gradient(
     135deg,
     #5a6dfc 0%,
     #6f63f6 100%
-  );
+  ); */
+
+background: linear-gradient(135deg, #9333EA 0%, #C026D3 50%, #E879F9 100%);
+
   color: #ffffff;
   border-radius: 8px;
   font-size: 13px;

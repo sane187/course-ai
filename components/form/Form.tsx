@@ -24,8 +24,7 @@ const FormCard: React.FC<FormCardProps> = ({ setResultData }) => {
 
      const [formData, setFormData] = React.useState<CourseFormData>(emptyData);
      const [loading, setLoading] = React.useState<boolean>(false);
-     const [quizOpen, setQuizOpen] = React.useState<boolean>(false);
-     const [quizData, setQuizData] = React.useState<any>([]);
+
 
 
      const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {  
@@ -149,11 +148,7 @@ const FormCard: React.FC<FormCardProps> = ({ setResultData }) => {
 </form>
  
 
-  <QuizModal
-        isOpen={quizOpen}
-        onClose={() => setQuizOpen(false)}
-        questions={quizData}
-      />
+ 
 
 
     </div>
