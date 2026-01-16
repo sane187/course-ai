@@ -1,0 +1,53 @@
+ .wrapper {
+  position: relative;
+  max-width: 1100px;
+  margin: auto;
+  padding: 80px 20px;
+}
+
+/* Base card */
+.card {
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+}
+
+/* Left main card */
+.card-left {
+  width: 45%;
+  position: relative;
+  z-index: 3;
+}
+
+/* Right floating card */
+.card-right {
+  width: 38%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateY(30px);
+  z-index: 2;
+}
+
+/* Bottom overlapping card */
+.card-bottom {
+  width: 45%;
+  position: absolute;
+  bottom: 0;
+  right: 10%;
+  transform: translateY(50%);
+  z-index: 1;
+}
+
+/* Responsive collapse */
+@media (max-width: 900px) {
+  .card-left,
+  .card-right,
+  .card-bottom {
+    position: static;
+    width: 100%;
+    transform: none;
+    margin-bottom: 24px;
+  }
+}

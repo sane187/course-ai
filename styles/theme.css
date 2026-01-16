@@ -1,0 +1,12 @@
+:root {
+  --background: 255 255 255;
+  --foreground: 17 24 39;
+  --primary: 37 99 235;
+}
+
+
+.dark {
+  --background: 0 0 0;
+  --foreground: 255 255 255;
+  --primary: 59 130 246;
+}
