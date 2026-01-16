@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import { submitCourseForm, CourseFormData } from '../../app/actions/courseAction';
 import CourseDetail from '../courseDetail/CourseDetail';
+import QuizModal from '../ui/QuizModal';
 
 
 
@@ -23,6 +24,8 @@ const FormCard: React.FC<FormCardProps> = ({ setResultData }) => {
 
      const [formData, setFormData] = React.useState<CourseFormData>(emptyData);
      const [loading, setLoading] = React.useState<boolean>(false);
+     const [quizOpen, setQuizOpen] = React.useState<boolean>(false);
+     const [quizData, setQuizData] = React.useState<any>([]);
 
 
      const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {  
@@ -144,8 +147,13 @@ const FormCard: React.FC<FormCardProps> = ({ setResultData }) => {
     {loading ? 'Generating...' : 'Generate Course'}
   </button>
 </form>
+ 
 
-    
+  <QuizModal
+        isOpen={quizOpen}
+        onClose={() => setQuizOpen(false)}
+        questions={quizData}
+      />
 
 
     </div>

@@ -1,0 +1,12 @@
+.startQuiz {
+  background: linear-gradient(
+    135deg,
+    #5a6dfc 0%,
+    #6f63f6 100%
+  );
+  color: #ffffff;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: 0 4px 10px rgba(90, 109, 252, 0.25);
+}
