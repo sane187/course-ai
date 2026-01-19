@@ -27,13 +27,39 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const theme = localStorage.getItem('theme');
+                  // Default to light theme if no theme is set
+                  if (!theme || theme === 'null' || theme === 'undefined') {
+                    localStorage.setItem('theme', '"light"');
+                    document.documentElement.classList.remove('dark');
+                  } else {
+                    // Only add dark class if theme is explicitly dark
+                    const isDark = theme === '"dark"' || theme === 'dark';
+                    if (isDark) {
+                      document.documentElement.classList.add('dark');
+                    } else {
+                      document.documentElement.classList.remove('dark');
+                    }
+                  }
+                } catch (e) {
+                  // On error, default to light
+                  document.documentElement.classList.remove('dark');
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >   
         <Providers>
-            {/* <Navbar />  */}
-               {/* <FormCard /> */}
-               {/* <FormCard /> */}
           {children}</Providers>
       </body>
     </html>

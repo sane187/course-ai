@@ -3,7 +3,7 @@
 @layer base {
   :root {
     /* Light mode */
-    --background: 241 245 249; /* slate-100 */
+    --background: 240 241 254; /* #f0f1fe */
     --foreground: 15 23 42;    /* slate-900 */
     --primary: 37 99 235;      /* blue-600 */
   }
@@ -24,18 +24,29 @@
   }
 
   body {
-
-     background: linear-gradient(
-    135deg,
-    #f1f5f9 0%,
-    #e2e8f0 50%,
-    #f8fafc 100%
-  );
-  color: #0f172a;
+    background: rgb(var(--background)) !important;
+    color: rgb(var(--foreground));
     -ms-overflow-style: none;
   }
 
 }
 
+
+@keyframes progress-slide {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 70%;
+  }
+  100% {
+    width: 100%;
+  }
+}  
+
+@keyframes sheen {
+  0%   { transform: translateX(-100%) skewX(-20deg); }
+  100% { transform: translateX(300%) skewX(-20deg); }
+}
 
 

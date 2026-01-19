@@ -9,9 +9,10 @@ import QuizModal from '../ui/QuizModal';
 
 type FormCardProps = {
   setResultData: React.Dispatch<React.SetStateAction<any>>
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const FormCard: React.FC<FormCardProps> = ({ setResultData }) => {
+const FormCard: React.FC<FormCardProps> = ({ setResultData, setLoading }) => {
  
 
 
@@ -23,7 +24,7 @@ const FormCard: React.FC<FormCardProps> = ({ setResultData }) => {
       }
 
      const [formData, setFormData] = React.useState<CourseFormData>(emptyData);
-     const [loading, setLoading] = React.useState<boolean>(false);
+     const [loading, setLoadingState] = React.useState<boolean>(false);
 
 
 
@@ -39,6 +40,7 @@ const FormCard: React.FC<FormCardProps> = ({ setResultData }) => {
 
        const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setLoadingState(true)
     setLoading(true)
      console.log(formData,"form data")
     try {
@@ -49,6 +51,7 @@ const FormCard: React.FC<FormCardProps> = ({ setResultData }) => {
     } catch (error) {
       console.error('Error:', error)
     } finally {
+      setLoadingState(false)
       setLoading(false)
     }
   }
@@ -59,7 +62,7 @@ const FormCard: React.FC<FormCardProps> = ({ setResultData }) => {
      
     <form
   onSubmit={handleSubmit}
-  className="max-w-xl mx-auto space-y-6 rounded-2xl border border-gray-200 dark:bg-gray-900 dark:border-gray-800 bg-[rgb(var(--background))] p-6 shadow-lg"
+  className="max-w-xl space-y-4 rounded-2xl border border-gray-200  dark:border-gray-800 pt-3"
 >
   {/* Course */}
   <div className="space-y-2">
@@ -139,12 +142,58 @@ const FormCard: React.FC<FormCardProps> = ({ setResultData }) => {
 
   {/* Submit */}
   <button
-    type="submit"
-    disabled={loading}
-    className=" w-max cursor-pointer w-full rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-black transition hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/40 disabled:cursor-not-allowed disabled:opacity-50"
-  >
+  type="submit"
+  disabled={loading}
+  className=" 
+    relative w-full overflow-hidden rounded-xl mt-2
+    bg-[#0f172a] text-white
+    px-4 py-2.5 text-sm font-semibold
+    transition-all duration-300 ease-out
+    cursor-pointer
+    /* motion */
+    hover:scale-[1.03]
+    active:scale-[0.96]
+
+    /* glow */
+    shadow-[0_0_0_0_rgba(15,23,42,0.6)]
+    hover:shadow-[0_0_6px_2px_rgba(15,23,42,0.75)]
+
+    /* focus */
+    focus:outline-none focus:ring-2 focus:ring-[#0f172a]/50
+
+    /* disabled */
+    disabled:cursor-not-allowed
+    disabled:opacity-50
+    disabled:hover:scale-100
+    disabled:hover:shadow-none
+  "
+>
+  {/* animated sheen */}
+  <span
+    className="
+      pointer-events-none absolute inset-0
+      before:absolute before:inset-y-0 before:-left-1/2
+      before:w-1/2 before:skew-x-[-20deg]
+      before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent
+      before:animate-[sheen_2.5s_linear_infinite]
+    "
+  />
+
+  {/* pulse ring */}
+  <span
+    className="
+      pointer-events-none absolute inset-0 rounded-xl
+      animate-pulse
+      ring-1 ring-[#0f172a]/30
+    "
+  />
+
+  <span className="relative z-10">
     {loading ? 'Generating...' : 'Generate Course'}
-  </button>
+  </span>
+</button>
+
+
 </form>
  
 
