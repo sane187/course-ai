@@ -44,10 +44,10 @@ include quiz: ${includeQuiz}
 
 STRICT REQUIREMENTS:
 - Each chapter MUST include a detailed explanatory paragraph
-- Each chapter content MUST be at least 120–150 words
+- Each chapter content MUST be at least 230–330 words
 - Use simple, school-appropriate language
 - Include examples where helpful
-- chapter description should be small like max 50-60 words
+- chapter description should be small like max 50-60 words and with bullet points
 
 QUIZ RULES (ONLY if Include quiz is true):
 - Create exactly 5 quiz questions

@@ -29,7 +29,7 @@ const Navbar: React.FC = () => {
             <a className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors" href="#">My Courses</a>
 
             {/* Theme Toggle */}
-            <button
+            {/* <button
               onClick={toggleTheme}
               className="rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-800"
               aria-label="Toggle theme"
@@ -39,12 +39,12 @@ const Navbar: React.FC = () => {
               ) : (
                 <Moon className="h-5 w-5 text-gray-700" />
               )}
-            </button>
+            </button> */}
           </div>
 
           {/* Mobile Menu Button */}
      <div className="bg-white md:hidden dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
-            <button
+            {/* <button
               onClick={toggleTheme}
               className="rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-800"
             >
@@ -53,7 +53,7 @@ const Navbar: React.FC = () => {
               ) : (
                 <Moon className="h-5 w-5 text-gray-700" />
               )}
-            </button>
+            </button> */}
 
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -66,6 +66,7 @@ const Navbar: React.FC = () => {
               )}
             </button>
           </div>
+          
         </div>
       </div>
 

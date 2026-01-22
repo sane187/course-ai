@@ -24,18 +24,18 @@ const ViewModal: React.FC<ViewModalProps> = ({
 
      <div className="flex justify-between items-center">
      <div>
-        <h4 className="text-lg font-semibold">{title}</h4>
+        <h4 className="text-lg font-semibold text-black-text" style={{color:'#0f172a'}}>{title}</h4>
         <h5 className="mt-1 text-sm text-gray-600">{description}</h5>
    </div>
          <button
           onClick={onClose}
-          className="text-xl font-bold cursor-pointer"
+          className="text-xl font-bold cursor-pointer text-black"
         >
           ✕
         </button>
   </div>
 
-        <p className="mt-4 text-sm leading-relaxed">{content}</p>
+        <p className="mt-4 text-sm leading-relaxed text-gray-900">{content}</p>
       </div>
     </div>
   )

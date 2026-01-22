@@ -52,33 +52,34 @@ const CourseDetail: React.FC<CourseDetailProps> = ({ data }) => {
 
       <p className="text-sm mb-4 text-gray-700 dark:text-gray-300">{data.description}</p>
 
-      <div className="border border-gray-300 dark:border-gray-700 rounded-lg">
+      <div className="rounded-lg">
 
 
         {
           data?.chapters?.length && data.chapters.map((chapter: any, index: number) => (
-            <div key={index} className="p-1 bg-gray-50 dark:bg-gray-700 rounded-md px-3 py-3 hover:bg-gray-100 dark:hover:bg-gray-600 flex justify-between items-center">
+            <div key={index} className="p-1 bg-gray-50 dark:bg-gray-700 rounded-md px-3 py-3 hover:bg-gray-100 dark:hover:bg-gray-600 flex justify-between items-center mb-2">
 
               <div>
                 <div className="flex items-center gap-2 rounded-lg mb-1.5" >
-                  <svg width="8" height="8" viewBox="0 0 8 8">
+                  <svg width="8" height="8" viewBox="0 0 8 8" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                       <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#9333EA" />
-                        <stop offset="50%" stopColor="#C026D3" />
-                        <stop offset="100%" stopColor="#E879F9" />
+                        <stop offset="0%" stop-color="#8A5AD9" />
+                        <stop offset="50%" stop-color="#B57EFF" />
+                        <stop offset="100%" stop-color="#E2CCFF" />
                       </linearGradient>
                     </defs>
 
                     <circle cx="4" cy="4" r="4" fill="url(#purpleGradient)" />
                   </svg>
 
+
                   <h3 className="text-gray-900 dark:text-white"> {`Chapter ${index + 1}:`} {chapter.title}</h3>
                 </div>
                 <p className="text-gray-700 dark:text-gray-300">{chapter.description}</p>
               </div>
 
-              <Eye color="purple" className="cursor-pointer" onClick={() => handleView(index)} />
+              <Eye color="#B57EFF" className="cursor-pointer" onClick={() => handleView(index)} />
 
             </div>
 
@@ -91,12 +92,12 @@ const CourseDetail: React.FC<CourseDetailProps> = ({ data }) => {
 
         <div>
           <div className="flex items-center gap-2 text-sm font-medium">
-            <p className="text-gray-900 dark:text-white"> Quiz </p>
+            <p className="text-gray-900 dark:text-white text-xl"> Quiz </p>
           </div>
           <p className="text-xs text-gray-500 dark:text-gray-400">Test your knowledge with short quiz based on the course.</p>
         </div>
 
-        <button className={`cursor-pointer py-1.5 px-6 rounded-xl ${styles.startQuiz} outline-none shadow-none text-xxl`} onClick={() => setQuizOpen(prev => !prev)}>Start Quiz</button>
+        <button className={`cursor-pointer py-2 px-8 rounded-xl ${styles.startQuiz} outline-none shadow-none text-xxl`} onClick={() => setQuizOpen(prev => !prev)}>Start Quiz</button>
 
       </div>
 

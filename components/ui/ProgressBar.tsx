@@ -10,9 +10,9 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ loading }) => {
   }
 
   return (
-    <div className="w-full h-1 bg-gray-200 rounded-full overflow-hidden relative">
+    <div className="w-full h-4 bg-gray-200 rounded-full overflow-hidden relative mb-3">
       <div 
-        className="h-full bg-blue-500 rounded-full"
+        className="h-full bg-purple-500 rounded-full"
         style={{
           animation: 'progress-slide 1.5s ease-in-out infinite',
         }}

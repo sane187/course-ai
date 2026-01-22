@@ -60,14 +60,15 @@ const FormCard: React.FC = () => {
   </div>
 
   <div
-    className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 w-full">
-    <h3 className="font-semibold mb-4 text-gray-900 dark:text-white">{loading?'Generating Course':'Ready to Generate Your Course'}</h3>
-    <ProgressBar loading={loading}/>
+    className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 w-full min-h-[180px]">
+    <h3 className= { `font-semibold ${loading?"mb-2":"mb-4"} text-gray-900 dark:text-white` }  >{loading?'Generating Course':'Ready to Generate Your Course'}</h3>
+    <ProgressBar loading={ loading || false}/>
+   
     <div className='flex items-center gap-2 mb-1 text-sm text-gray-700 dark:text-gray-300'>    {!loading?<Check className="text-green-600 dark:text-green-400" />:<Settings className="text-gray-600 dark:text-gray-400" />} Your AI will create </div>
     <div className='flex items-center gap-2 mb-1 text-sm text-gray-700 dark:text-gray-300'>    {!loading?<Check className="text-green-600 dark:text-green-400" />:<Settings className="text-gray-600 dark:text-gray-400" />} Chapter-wise content (2 chapters) </div>
     <div className='flex items-center gap-2 mb-1 text-sm text-gray-700 dark:text-gray-300'>    {!loading?<Check className="text-green-600 dark:text-green-400" />:<Settings className="text-gray-600 dark:text-gray-400" />} Quiz-questions included (5 questions) </div>
-    <div className='flex items-center gap-2 mb-1 text-sm text-gray-700 dark:text-gray-300'>    {!loading?<Check className="text-green-600 dark:text-green-400" />:<Settings className="text-gray-600 dark:text-gray-400" />} Tailored for (Target Audience) </div>
-  
+   {!loading && <div className='flex items-center gap-2 mb-1 text-sm text-gray-700 dark:text-gray-300'>    {!loading?<Check className="text-green-600 dark:text-green-400" />:<Settings className="text-gray-600 dark:text-gray-400" />} Tailored for (Target Audience) </div>
+    }
     
   </div>
 
