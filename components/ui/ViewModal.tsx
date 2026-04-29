@@ -33,10 +33,10 @@ const ViewModal: React.FC<ViewModalProps> = ({
       ['#f59e0b', '#ef4444'], // amber-red
       ['#8b5cf6', '#d946ef'], // purple-fuchsia
     ];
-    
+
     const [color1, color2] = gradients[index % gradients.length];
     const safeTitle = title.replace(/[<>&"']/g, '');
-    
+
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
       <defs>
         <linearGradient id="grad${index}" x1="0%" y1="0%" x2="100%" y2="100%">
