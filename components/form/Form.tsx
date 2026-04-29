@@ -1,207 +1,151 @@
 "use client";
-import React, { useState } from 'react'
+import React from 'react';
 import { submitCourseForm, CourseFormData } from '../../app/actions/courseAction';
-import CourseDetail from '../courseDetail/CourseDetail';
-import QuizModal from '../ui/QuizModal';
-
-
-
+import { Target, ListOrdered, GraduationCap, Zap } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 type FormCardProps = {
   setResultData: React.Dispatch<React.SetStateAction<any>>
   setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const FormCard: React.FC<FormCardProps> = ({ setResultData, setLoading }) => {
- 
+const Form: React.FC<FormCardProps> = ({ setResultData, setLoading }) => {
+  const emptyData: CourseFormData = { 
+    course: "",
+    targetAudience: "",
+    chapters: 0,
+    quiz: false
+  }
 
+  const [formData, setFormData] = React.useState<CourseFormData>(emptyData);
+  const [loadingState, setLoadingState] = React.useState<boolean>(false);
 
-     const emptyData:CourseFormData = { 
-        course:"",
-        targetAudience:"",
-          chapters:0,
-          quiz:false
-      }
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {  
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: name === "quiz" ? (e.target as HTMLInputElement).checked : value,
+    }));
+  }
 
-     const [formData, setFormData] = React.useState<CourseFormData>(emptyData);
-     const [loading, setLoadingState] = React.useState<boolean>(false);
-
-
-
-     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {  
-        const { name, value } = e.target;
-        setFormData((prevData) => ({
-          ...prevData,
-          [name]: name === "quiz" ? (e.target as HTMLInputElement).checked : value,
-        }));
-
-
-      }
-
-       const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoadingState(true)
-    setLoading(true)
-     console.log(formData,"form data")
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoadingState(true);
+    setLoading(true);
+    
     try {
-
       const result = await submitCourseForm(formData);
-       setResultData(result.outline)
-      console.log(result,'result from server action')
+      setResultData(result.outline);
     } catch (error) {
-      console.error('Error:', error)
+      console.error('Error:', error);
     } finally {
-      setLoadingState(false)
-      setLoading(false)
+      setLoadingState(false);
+      setLoading(false);
     }
   }
-   
 
   return (
-    <div>
-     
-    <form
-  onSubmit={handleSubmit}
-  className="max-w-xl space-y-4 rounded-2xl border border-gray-200  dark:border-gray-800 pt-3"
->
-  {/* Course */}
-  <div className="space-y-2">
-    <label
-      htmlFor="course"
-      className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-    >
-      Course Topic
-    </label>
+    <form onSubmit={handleSubmit} className="space-y-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        {/* Course Topic */}
+        <div className="space-y-3 md:col-span-2">
+          <label htmlFor="course" className="flex items-center gap-2 text-sm font-semibold text-slate-300 uppercase tracking-wider">
+            <GraduationCap size={16} className="text-emerald-400" /> Course Topic
+          </label>
+          <input
+            id="course"
+            name="course"
+            type="text"
+            required
+            value={formData.course}
+            onChange={handleChange}
+            className="w-full bg-[#030712]/50 border border-slate-800 rounded-2xl px-5 py-4 text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-all text-lg"
+            placeholder="e.g. Advanced Quantum Computing"
+          />
+        </div>
 
-    <input
-      id="course"
-      name="course"
-      type="text"
-      required
-      value={formData.course}
-      onChange={handleChange}
-      className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-transparent px-3 py-2 text-sm text-gray-900 dark:text-gray-100 focus:border-primary focus:ring-2 focus:ring-primary/30 outline-none"
-      placeholder="e.g. Introduction to AI"
-    />
-  </div>
+        {/* Target Audience */}
+        <div className="space-y-3">
+          <label htmlFor="targetAudience" className="flex items-center gap-2 text-sm font-semibold text-slate-300 uppercase tracking-wider">
+            <Target size={16} className="text-emerald-400" /> Audience
+          </label>
+          <input
+            id="targetAudience"
+            name="targetAudience"
+            type="text"
+            required
+            value={formData.targetAudience}
+            onChange={handleChange}
+            className="w-full bg-[#030712]/50 border border-slate-800 rounded-2xl px-5 py-4 text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-all"
+            placeholder="e.g. University Students"
+          />
+        </div>
 
-  {/* Target Audience */}
-  <div className="space-y-2">
-    <label
-      htmlFor="targetAudience"
-      className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-    >
-      Target Audience
-    </label>
+        {/* Chapters */}
+        <div className="space-y-3">
+          <label htmlFor="chapters" className="flex items-center gap-2 text-sm font-semibold text-slate-300 uppercase tracking-wider">
+            <ListOrdered size={16} className="text-emerald-400" /> Chapters
+          </label>
+          <input
+            id="chapters"
+            name="chapters"
+            type="number"
+            min={1}
+            value={formData.chapters}
+            onChange={handleChange}
+            className="w-full bg-[#030712]/50 border border-slate-800 rounded-2xl px-5 py-4 text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-all"
+            placeholder="Number of chapters"
+          />
+        </div>
 
-    <input
-      id="targetAudience"
-      name="targetAudience"
-      type="text"
-      required
-      value={formData.targetAudience}
-      onChange={handleChange}
-      className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-transparent px-3 py-2 text-sm text-gray-900 dark:text-gray-100 focus:border-primary focus:ring-2 focus:ring-primary/30 outline-none"
-      placeholder="Beginners, Developers, Students"
-    />
-  </div>
+        {/* Quiz Toggle */}
+        <div className="md:col-span-2 flex items-center justify-between p-5 rounded-2xl border border-slate-800 bg-[#030712]/30">
+          <div>
+            <h4 className="text-white font-medium mb-1">Include Assessment</h4>
+            <p className="text-slate-500 text-sm">Generate 5 multiple-choice questions for the end of the course.</p>
+          </div>
+          <label className="relative inline-flex items-center cursor-pointer">
+            <input 
+              type="checkbox" 
+              name="quiz" 
+              checked={formData.quiz} 
+              onChange={handleChange} 
+              className="sr-only peer" 
+            />
+            <div className="w-14 h-7 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-emerald-500"></div>
+          </label>
+        </div>
 
-  {/* Chapters */}
-  <div className="space-y-2">
-    <label
-      htmlFor="chapters"
-      className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-    >
-      Number of Chapters
-    </label>
+      </div>
 
-    <input
-      id="chapters"
-      name="chapters"
-      type="number"
-      min={1}
-      value={formData.chapters}
-      onChange={handleChange}
-      className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-transparent px-3 py-2 text-sm text-gray-900 dark:text-gray-100 focus:border-primary focus:ring-2 focus:ring-primary/30 outline-none"
-    />
-  </div>
-
-  {/* Quiz */}
-  <div className="flex items-center gap-3">
-    <input
-      type="checkbox"
-      name="quiz"
-      checked={formData.quiz}
-      onChange={handleChange}
-      className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary/40"
-    />
-    <span className="text-sm text-gray-700 dark:text-gray-300">
-      Include Quiz
-    </span>
-  </div>
-
-  {/* Submit */}
-  <button
-  type="submit"
-  disabled={loading}
-  className=" 
-    relative w-full overflow-hidden rounded-xl mt-2
-    bg-[#0f172a] text-white
-    px-4 py-2.5 text-sm font-semibold
-    transition-all duration-300 ease-out
-    cursor-pointer
-    /* motion */
-    hover:scale-[1.03]
-    active:scale-[0.96]
-
-    /* glow */
-    shadow-[0_0_0_0_rgba(15,23,42,0.6)]
-    hover:shadow-[0_0_6px_2px_rgba(15,23,42,0.75)]
-
-    /* focus */
-    focus:outline-none focus:ring-2 focus:ring-[#0f172a]/50
-
-    /* disabled */
-    disabled:cursor-not-allowed
-    disabled:opacity-50
-    disabled:hover:scale-100
-    disabled:hover:shadow-none
-  "
->
-  {/* animated sheen */}
-  <span
-    className="
-      pointer-events-none absolute inset-0
-      before:absolute before:inset-y-0 before:-left-1/2
-      before:w-1/2 before:skew-x-[-20deg]
-      before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent
-      before:animate-[sheen_2.5s_linear_infinite]
-    "
-  />
-
-  {/* pulse ring */}
-  <span
-    className="
-      pointer-events-none absolute inset-0 rounded-xl
-      animate-pulse
-      ring-1 ring-[#0f172a]/30
-    "
-  />
-
-  <span className="relative z-10">
-    {loading ? 'Generating...' : 'Generate Course'}
-  </span>
-</button>
-
-
-</form>
- 
-
- 
-
-
-    </div>
+      {/* Submit Button */}
+      <motion.button
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        type="submit"
+        disabled={loadingState}
+        className="relative w-full overflow-hidden rounded-2xl bg-white text-[#030712] py-4 text-lg font-bold transition-all disabled:opacity-70 disabled:cursor-not-allowed group mt-4 shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] hover:shadow-[0_0_40px_-10px_rgba(16,185,129,0.5)]"
+      >
+        {/* Animated sheen */}
+        <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-black/10 to-transparent group-hover:animate-[sheen_1.5s_ease-in-out_infinite]" />
+        
+        <div className="relative z-10 flex items-center justify-center gap-2">
+          {loadingState ? (
+            <>
+              <div className="w-5 h-5 border-2 border-[#030712] border-t-transparent rounded-full animate-spin" />
+              Synthesizing AI Core...
+            </>
+          ) : (
+            <>
+              <Zap size={20} className="text-emerald-500" />
+              Initialize Generation
+            </>
+          )}
+        </div>
+      </motion.button>
+    </form>
   )
 }
 
-export default FormCard
+export default Form;

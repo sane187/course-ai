@@ -32,9 +32,9 @@ function extractJSON(text: string): string {
 export async function POST(req: Request) {
   try {
     const body: CreateCourseRequest = await req.json();
-    const { topic, audience, chapters,includeQuiz } = body;
+    const { topic, audience, chapters, includeQuiz } = body;
 
-const prompt = `
+    const prompt = `
 Create a school-level course.
 
 Topic: ${topic}
@@ -43,23 +43,21 @@ Number of chapters: ${chapters}
 include quiz: ${includeQuiz}
 
 STRICT REQUIREMENTS:
-- Each chapter MUST include a detailed explanatory paragraph
-- Each chapter content MUST be at least 230–330 words
-- Use simple, school-appropriate language
-- Include examples where helpful
-- chapter description should be small like max 50-60 words and with bullet points
+- Each chapter MUST have an array of "topics".
+- Each topic MUST have "title", "content" (at least 150 words), and an array of "subTopics".
+- Each subTopic MUST have a "title" and "content".
+- Each chapter MUST also include an "imagePrompt" field containing exactly 2 to 3 visual keywords describing the chapter (e.g., "quantum computer glowing", "ancient rome colosseum").
+- Use simple, engaging, school-appropriate language.
+- Chapter descriptions should be short (30-40 words).
 
 QUIZ RULES (ONLY if Include quiz is true):
-- Create exactly 5 quiz questions
-- Each question must have exactly 4 options
-- One correct answer only
-- Correct answer must be one of the options
-- Return correctAnswer as the option string (not index)
-- If include quiz is false, DO NOT include the "quiz" field at all
+- Create exactly 5 quiz questions.
+- Each question must have exactly 4 options.
+- One correct answer only, matching the exact option string.
+- If include quiz is false, DO NOT include the "quiz" field.
+
 Respond ONLY with valid JSON.
-No markdown.
-No explanation.
-No extra text.
+No markdown. No explanation. No extra text.
 
 {
   "title": "",
@@ -68,24 +66,38 @@ No extra text.
     {
       "title": "",
       "description": "",
-      "content": ""
+      "imagePrompt": "",
+      "topics": [
+        {
+          "title": "",
+          "content": "",
+          "subTopics": [
+            {
+              "title": "",
+              "content": ""
+            }
+          ]
+        }
+      ]
     }
   ],
- "quiz": [{
+  "quiz": [
+    {
       "question": "",
       "options": ["", "", "", ""],
       "correctAnswer": ""
-  }]
+    }
+  ]
 }
 `;
 
 
-  const res = await groq.chat.completions.create({
-  model: "llama-3.1-8b-instant",
-  messages: [{ role: "user", content: prompt }],
-  temperature: 0.3,
-  max_tokens: 2500
-});
+    const res = await groq.chat.completions.create({
+      model: "llama-3.1-8b-instant",
+      messages: [{ role: "user", content: prompt }],
+      temperature: 0.3,
+      max_tokens: 2500
+    });
     const raw = res.choices[0].message.content ?? "{}";
     const outline: OutlineResponse = JSON.parse(extractJSON(raw));
 

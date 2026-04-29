@@ -8,9 +8,9 @@ export default function HomePage() {
 
   return (
     <main >
-       <Navbar />
-       <FormCard />
-      
+      <Navbar />
+      <FormCard />
+
     </main>
   );
 }
